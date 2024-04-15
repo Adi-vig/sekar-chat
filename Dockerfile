@@ -14,6 +14,7 @@ COPY server.py ./
 # Now the structure looks like this '/usr/app/src/test.py'
 
 
+EXPOSE 8080
 #CMD instruction should be used to run the software
 #contained by your image, along with any arguments.
 

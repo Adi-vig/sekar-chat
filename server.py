@@ -22,7 +22,14 @@ def handle_client(client_socket):
 
     client_socket.send(welcom.encode("utf-8"))
 
-    client_socket.send("Welcome to the chat! Please enter your name:".encode("utf-8"))
+
+    client_socket.send("Currently Online Users: \n".encode("utf-8"))
+    for nam in clients.keys():
+        client_socket.send(nam.encode("utf-8"))
+
+
+
+    client_socket.send("\n Welcome to the chat! Please enter your name:".encode("utf-8"))
     client_name = client_socket.recv(1024).decode("utf-8")
     clients[client_name] = client_socket
     
@@ -57,6 +64,8 @@ def main():
     server_socket.bind((host, port))
     server_socket.listen(5)
     print(f"Server listening on {host}:{port}")
+
+    
 
     while True:
         client_socket, addr = server_socket.accept()

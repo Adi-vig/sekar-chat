@@ -15,11 +15,16 @@ welcom= """
 ╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝╚══════╝  ░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░
 
 
+
+Press 1 to get chat history
 """
+
+
+histor="\n"
 
 def handle_client(client_socket):
     # Send a welcome message to the client
-
+    global histor
     client_socket.send(welcom.encode("utf-8"))
 
 
@@ -38,7 +43,17 @@ def handle_client(client_socket):
     while True:
         try:
             # Receive message from the client
+            # client_socket.send(f"\n{client_name[:-1]} ==> ".encode("utf-8"))
             message = client_socket.recv(1024).decode("utf-8")
+            
+            
+            if(message[:-1]=="1"):
+                client_socket.send(f"\n:::::::::::::::HISTORY ::::::::::::::\n  {histor} \n\n".encode("utf-8"))
+            
+            else : 
+                histor+= f"{client_name[:-1]} ==> {message}"
+                
+            
             if not message:
                 break
 
